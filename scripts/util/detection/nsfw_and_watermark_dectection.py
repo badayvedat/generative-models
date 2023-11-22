@@ -43,7 +43,8 @@ class DeepFloydDataFiltering(object):
         super().__init__()
         self.verbose = verbose
         self._device = None
-        self.clip_model, _ = clip.load("ViT-L/14", device=device)
+        download_root = os.environ.get("CLIP_ROOT", None)
+        self.clip_model, _ = clip.load("ViT-L/14", device=device, download_root=download_root)
         self.clip_model.eval()
 
         self.cpu_w_weights, self.cpu_w_biases = load_model_weights(
